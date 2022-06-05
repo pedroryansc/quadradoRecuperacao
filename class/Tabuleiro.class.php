@@ -68,7 +68,7 @@
             $conexao = Conexao::getInstance();
             $sql = "DELETE FROM tabuleiro WHERE idtabuleiro = :id";
             $comando = $conexao->prepare($sql);
-            $comando->bindValue(":id", $this->getIdTabuleiro());
+            $comando->bindParam(":id", $this->getIdTabuleiro());
             if($comando->execute())
                 return $conexao->lastInsertId();
             else{

@@ -46,7 +46,7 @@
             <tr>
                 <th><?php echo $linha["idtabuleiro"]; ?></th>
                 <th><?php echo $linha["lado"]; ?></th>
-                <td><a href="show.php?id=<?php echo $linha["idtabuleiro"]; ?>">Visualizar tabuleiro</a></td>
+                <td><a href="show.php?obj=tab&id=<?php echo $linha["idtabuleiro"]; ?>">Visualizar tabuleiro</a></td>
                 <td><a href="tabuleiro.php?acao=editar&id=<?php echo $linha["idtabuleiro"]; ?>">Editar</a></td>
                 <td><a href="javascript:excluirRegistro('../ctrl/ctrl_tabuleiro.php?acao=excluir&id=<?php echo $linha["idtabuleiro"]; ?>')">Excluir</a></td>
             </tr>

@@ -10,7 +10,7 @@
             $tab->excluir();
             header("location:../index/tabuleiro.php");
         } catch(Exception $e){
-            echo "Erro ao excluir tabuleiro".
+            echo "Erro ao excluir tabuleiro <br>".
                 "<br>".
                 $e->getMessage();
         }
