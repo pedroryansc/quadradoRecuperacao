@@ -100,5 +100,15 @@
                 $comando->debugDumpParams();
             }
         }
+
+        public function efetuaLogin($lg, $sn){
+            require_once("../utils.php");
+            $lista = listaUsuario(0, 0);
+            foreach($lista as $linha){
+                if($lg == $linha["login"] && $sn == $linha["senha"])
+                    return true;
+            }
+            return false;
+        }
     }
 ?>

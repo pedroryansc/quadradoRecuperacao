@@ -18,10 +18,11 @@
 
     $acao = isset($_POST["acao"]) ? $_POST["acao"] : "";
 
+    $nome = isset($_POST["nome"]) ? $_POST["nome"] : "";
+    $login = isset($_POST["login"]) ? $_POST["login"] : "";
+    $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
+    
     if($acao == "salvar"){
-        $nome = isset($_POST["nome"]) ? $_POST["nome"] : "";
-        $login = isset($_POST["login"]) ? $_POST["login"] : "";
-        $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
         $user = new Usuario($id, $nome, $login, $senha);
         if($id == 0){
             try{
@@ -41,5 +42,11 @@
             }
         }
         header("location:../index/usuario.php");
+    } else if($acao == "login"){
+        $user = new Usuario(1, 1, 1, 1);
+        if($user->efetuaLogin($login, $senha))
+            header("location:../index/usuario.php");
+        else
+            header("location:../login.php");
     }
 ?>
