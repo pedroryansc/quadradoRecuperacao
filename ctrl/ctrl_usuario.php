@@ -18,6 +18,8 @@
 
     $acao = isset($_POST["acao"]) ? $_POST["acao"] : "";
 
+    $etapa = isset($_GET["etapa"]) ? $_GET["etapa"] : "";
+
     $nome = isset($_POST["nome"]) ? $_POST["nome"] : "";
     $login = isset($_POST["login"]) ? $_POST["login"] : "";
     $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
@@ -41,11 +43,14 @@
                     $e->getMessage();
             }
         }
-        header("location:../index/usuario.php");
+        if($etapa == "menu")
+            header("location:../login.php");
+        else
+            header("location:../index/usuario.php");
     } else if($acao == "login"){
         $user = new Usuario(1, 1, 1, 1);
         if($user->efetuaLogin($login, $senha))
-            header("location:../index/usuario.php");
+            header("location:../principal.php");
         else
             header("location:../login.php");
     }
