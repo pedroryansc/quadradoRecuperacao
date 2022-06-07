@@ -18,8 +18,8 @@
     <title>Quadrado - Quabulário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="fav/favicon.ico">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../fav/favicon.ico">
 </head>
 <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-light">
@@ -42,68 +42,112 @@
                 </ul>
             </div>
             <div class="d-flex">
-                <a class="nav-link text-success" href="menu.html">Sair</a>
+                <a class="nav-link text-success" href="../menu.html">Sair</a>
             </div>
         </div>
     </nav></b>
-    <form action="../ctrl/ctrl_quadrado.php?id=<?php echo $id; ?>" method="post">
-        Lado: <input type="text" name="lado" value="<?php if($acao == "editar") echo $vetor[0][1]; ?>"><br>
+    <div id="body">
         <br>
-        Cor: <input type="color" name="cor" value="<?php if($acao == "editar") echo $vetor[0][2]; ?>"><br>
+        <header>
+            <h2>Quadrado</h2>
+        </header>
         <br>
-        Tabuleiro: <select name="tabuleiro">
+        <form action="../ctrl/ctrl_quadrado.php?id=<?php echo $id; ?>" method="post">
+            <div class="form-floating">
+                <input type="text" class="form-control" name="lado" placeholder="lado" value="<?php if($acao == "editar") echo $vetor[0]["lado"]; ?>">
+                <label for="lado">Lado</label>
+            </div>
+            <br>
+            <label for="cor">Cor</label>
+            <input type="color" class="form-control form-control-color" name="cor" value="<?php if($acao == "editar") echo $vetor[0]["cor"]; ?>">
+            <br>
+            Tabuleiro
+            <select class="form-select" name="tabuleiro">
+                <?php
+                    $lista = listaTabuleiro(0, 0);
+                    foreach($lista as $linha){
+                ?>
+                    <option value="<?php echo $linha["idtabuleiro"]; ?>" <?php if($acao == "editar" && $linha["idtabuleiro"] == $vetor[0]["tabuleiro_idtabuleiro"]) echo "selected"; ?>>
+                        <?php echo "Tab. ".$linha["idtabuleiro"]." (Lado - ".$linha["lado"].")"; ?>
+                    </option>
+                <?php
+                    }
+                ?>
+            </select><br>
+            <br>
+            <div class="d-grid gap-2">
+            	<button type="submit" class="btn btn-success btn-lg" name="acao" value="salvar">Criar</button>
+        	</div>
+        </form>
+        <br><br>
+        <form method="post">
+            Pesquisar por: <br>
+            <div class="form-check-sm">
+                <input type="radio" class="form-check-input" name="tipo" value="1" <?php if($tipo == 1) echo "checked"; ?>>
+                <label class="form-check-label" for="tipo">
+                    ID
+                </label>
+            </div>
+            <div class="form-check-sm">
+                <input type="radio" class="form-check-input" name="tipo" value="2" <?php if($tipo == 2) echo "checked"; ?>>
+                <label class="form-check-label" for="tipo">
+                    Lado
+                </label>
+            </div>
+            <div class="form-check-sm">
+                <input type="radio" class="form-check-input" name="tipo" value="3" <?php if($tipo == 3) echo "checked"; ?>>
+                <label class="form-check-label" for="tipo">
+                    Cor
+                </label>
+            </div>
+            <div class="form-check-sm">
+                <input type="radio" class="form-check-input" name="tipo" value="4" <?php if($tipo == 4) echo "checked"; ?>>
+                <label class="form-check-label" for="tipo">
+                    Tabuleiro
+                </label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input type="search" class="form-control" name="info" placeholder="pesquisa" value="<?php echo $info; ?>"><br>
+                <label for="pesquisa">Pesquisa</label>
+            </div>
+            <div class="d-grid gap-2 d-md-flex">
+                <button type="submit" class="btn btn-success btn-lg">Pesquisar</button>
+        	</div>
+        </form>
+        <br>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Lado</th>
+                    <th>Cor</th>
+                    <th>Tabuleiro (ID)</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
             <?php
-                $lista = listaTabuleiro(0, 0);
+                $lista = listaQuadrado($tipo, $info);
                 foreach($lista as $linha){
             ?>
-                <option value="<?php echo $linha["idtabuleiro"]; ?>" <?php if($acao == "editar" && $linha["idtabuleiro"] == $vetor[0][3]) echo "selected"; ?>>
-                    <?php echo "Tab. ".$linha["idtabuleiro"]." (Lado - ".$linha["lado"].")"; ?>
-                </option>
+                <tr>
+                    <th><?php echo $linha["idquadrado"]; ?></th>
+                    <td><?php echo $linha["lado"]; ?></td>
+                    <td><?php echo $linha["cor"]; ?></td>
+                    <td><?php echo $linha["tabuleiro_idtabuleiro"]; ?></td>
+                    <td><a href="show.php?obj=quad&id=<?php echo $linha["idquadrado"]; ?>">Visualizar quadrado</a></td>
+                    <td><a href="quadrado.php?acao=editar&id=<?php echo $linha["idquadrado"]; ?>">Editar</a></td>
+                    <td><a href="javascript:excluirRegistro('../ctrl/ctrl_quadrado.php?acao=excluir&id=<?php echo $linha["idquadrado"]; ?>')">Excluir</a></td>
+                </tr>
             <?php
                 }
             ?>
-        </select><br>
-        <br>
-        <button type="submit" name="acao" value="salvar">Criar</button>
-    </form>
-    <br><br>
-    <form method="post">
-        Pesquisar por: <br>
-        <input type="radio" name="tipo" value="1" <?php if($tipo == 1) echo "checked"; ?>> ID<br>
-        <input type="radio" name="tipo" value="2" <?php if($tipo == 2) echo "checked"; ?>> Lado<br>
-        <input type="radio" name="tipo" value="3" <?php if($tipo == 3) echo "checked"; ?>> Cor<br>
-        <input type="radio" name="tipo" value="4" <?php if($tipo == 4) echo "checked"; ?>> Tabuleiro<br>
-        <br>
-        <input type="search" name="info" placeholder="Pesquisa" value="<?php echo $info; ?>"><br>
-        <br>
-        <button type="submit">Pesquisar</button>
-    </form>
-    <br>
-    <table border=1>
-        <tr>
-            <th>ID</th>
-            <th>Lado</th>
-            <th>Cor</th>
-            <th>Tabuleiro (ID)</th>
-        </tr>
-        <?php
-            $lista = listaQuadrado($tipo, $info);
-            foreach($lista as $linha){
-        ?>
-            <tr>
-                <th><?php echo $linha["idquadrado"]; ?></th>
-                <th><?php echo $linha["lado"]; ?></th>
-                <th><?php echo $linha["cor"]; ?></th>
-                <th><?php echo $linha["tabuleiro_idtabuleiro"]; ?></th>
-                <td><a href="show.php?obj=quad&id=<?php echo $linha["idquadrado"]; ?>">Visualizar quadrado</a></td>
-                <td><a href="quadrado.php?acao=editar&id=<?php echo $linha["idquadrado"]; ?>">Editar</a></td>
-                <td><a href="javascript:excluirRegistro('../ctrl/ctrl_quadrado.php?acao=excluir&id=<?php echo $linha["idquadrado"]; ?>')">Excluir</a></td>
-            </tr>
-        <?php
-            }
-        ?>
-    </table>
-    <footer class="footer fixed-bottom mt-auto py-3 bg-success">
+        </table>
+        <br><br>
+    </div>
+    <footer class="footer mt-auto py-3 bg-success">
         <center>  
             <div class="container">
                 <span class="text-light"><br>©2022 3º INFO</span>
@@ -118,3 +162,5 @@
             location.href = url;
     }    
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>

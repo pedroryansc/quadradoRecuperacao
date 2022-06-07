@@ -109,7 +109,11 @@
         }
 
         public function __toString(){
-            return "<a href='quadrado.php'>Voltar à página de quadrados</a> | [Quadrado ".$this->getIdQuadrado()."] <br>".
+            return "<a class='btn btn-success' href='quadrado.php'>Voltar à página de quadrados</a> <br>".
+                    "<br>".
+                    "<header>".
+                        "<h2>Quadrado ".$this->getIdQuadrado()."</h2>".
+                    "</header>".
                     "<br>".
                     "Lado: ".$this->getLado()." <br>".
                     "Área: ".$this->area()." <br>".

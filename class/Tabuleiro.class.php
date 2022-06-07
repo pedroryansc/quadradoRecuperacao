@@ -85,7 +85,11 @@
         }
 
         public function __toString(){
-            return "<a href='tabuleiro.php'>Voltar à página de tabuleiros</a> | [Tabuleiro ".$this->getIdTabuleiro()."] <br>".
+            return "<a class='btn btn-success' href='tabuleiro.php'>Voltar à página de tabuleiros</a> <br>".
+                    "<br>".
+                    "<header>".
+                        "<h2>Tabuleiro ".$this->getIdTabuleiro()."</h2>".
+                    "</header>".
                     "<br>".
                     "Lado: ".$this->getLado()." <br>".
                     "Área: ".$this->area()." <br>".
