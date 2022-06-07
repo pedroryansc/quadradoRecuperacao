@@ -8,12 +8,12 @@
         try{
             $tab = new Tabuleiro($id, 1);
             $tab->excluir();
-            header("location:../index/tabuleiro.php");
         } catch(Exception $e){
             echo "Erro ao excluir tabuleiro <br>".
                 "<br>".
                 $e->getMessage();
         }
+        header("location:../index/tabuleiro.php");
     }
 
     $acao = isset($_POST["acao"]) ? $_POST["acao"] : "";
