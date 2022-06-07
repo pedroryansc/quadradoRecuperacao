@@ -31,6 +31,12 @@
             <input required="true" type="password" class="form-control" name="senha" placeholder="senha"><br>
             <label for="senha">Senha</label>
         </div>
+        <!--
+            <div class="form-floating col-3 mx-auto">
+            <input required="true" type="password" class="form-control" name="confirmSenha" placeholder="confirmSenha"><br>
+            <label for="confirmSenha">Confirmar Senha</label>
+            </div>
+        -->
         <div class="d-grid gap-2 d-md-flex col-3 mx-auto justify-content-md-end">
             <a type="submit" class="btn btn-danger btn-lg" href="menu.html">Voltar à página inicial</a>
             <button type="submit" class="btn btn-success btn-lg" name="acao" value="salvar">Cadastrar-se</button>

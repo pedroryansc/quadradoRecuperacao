@@ -23,17 +23,24 @@
     $nome = isset($_POST["nome"]) ? $_POST["nome"] : "";
     $login = isset($_POST["login"]) ? $_POST["login"] : "";
     $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
+
+    //$confirmSenha = isset($_POST["confirmSenha"]) ? $_POST["confirmSenha"] : "";
     
     if($acao == "salvar"){
         $user = new Usuario($id, $nome, $login, $senha);
         if($id == 0){
-            try{
-                $user->insere();
-            } catch(Exception $e){
-                echo "Erro ao cadastrar usuário <br>".
-                    "<br>".
-                    $e->getMessage();
-            }
+            //if($confirmSenha == $senha){
+                try{
+                    $user->insere();
+                } catch(Exception $e){
+                    echo "Erro ao cadastrar usuário <br>".
+                        "<br>".
+                        $e->getMessage();
+                }
+            /*
+            } else
+                header("location:../cadastro.php");
+            */
         } else{
             try{
                 $user->editar();
